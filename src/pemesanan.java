@@ -155,14 +155,21 @@ public class pemesanan extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbl_list.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_listMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_list);
 
         jLabel7.setText("Kode Jadwal");
 
         jLabel8.setText("Total");
 
+        tb_kodejadwal.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tb_kodejadwal.setEnabled(false);
 
+        tb_total.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         tb_total.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -228,6 +235,8 @@ public class pemesanan extends javax.swing.JFrame {
 
     private void bt_cekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cekActionPerformed
         // TODO add your handling code here:
+        tb_kodejadwal.setText("");
+        tb_total.setText("");
         String kota_awal_cb = cb_awal.getSelectedItem().toString();
         String kota_awal = kota_awal_cb.substring(0, 4);
         String kota_tujuan_cb = cb_tujuan.getSelectedItem().toString();
@@ -254,6 +263,14 @@ public class pemesanan extends javax.swing.JFrame {
         } catch (Exception e) {
         }
     }//GEN-LAST:event_bt_cekActionPerformed
+
+    private void tbl_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_listMouseClicked
+        // TODO add your handling code here:
+        int baris = tbl_list.rowAtPoint(evt.getPoint());
+        tb_kodejadwal.setText(tbl_list.getValueAt(baris, 0).toString());
+        int total = Integer.parseInt(String.valueOf(tbl_list.getValueAt(baris, 4))) * Integer.parseInt(tb_jumlah.getText());
+        tb_total.setText(String.valueOf(total));
+    }//GEN-LAST:event_tbl_listMouseClicked
 
     private void load_table() {
         // membuat tampilan model tabel
