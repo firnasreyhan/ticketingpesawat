@@ -1,3 +1,9 @@
+
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,6 +14,7 @@
  *
  * @author USER
  */
+
 public class menu_admin extends javax.swing.JFrame {
 
     /**
@@ -29,7 +36,7 @@ public class menu_admin extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         pesawat = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btn_kota = new javax.swing.JButton();
         jadwal = new javax.swing.JButton();
         btnClose = new javax.swing.JButton();
 
@@ -42,10 +49,30 @@ public class menu_admin extends javax.swing.JFrame {
         jLabel1.setText("ADMIN\n(CRUD)");
 
         pesawat.setText("PESAWAT");
+        pesawat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pesawatMouseClicked(evt);
+            }
+        });
+        pesawat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesawatActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("KOTA");
+        btn_kota.setText("KOTA");
+        btn_kota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_kotaActionPerformed(evt);
+            }
+        });
 
         jadwal.setText("JADWAL");
+        jadwal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jadwalActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -57,8 +84,8 @@ public class menu_admin extends javax.swing.JFrame {
                 .addGap(69, 69, 69)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                    .addComponent(btn_kota, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jadwal)
                 .addGap(32, 32, 32))
         );
@@ -69,26 +96,31 @@ public class menu_admin extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                    .addComponent(btn_kota)
                     .addComponent(pesawat)
                     .addComponent(jadwal))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
         btnClose.setText("CLOSE");
+        btnClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCloseMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(361, Short.MAX_VALUE)
                 .addComponent(btnClose)
                 .addGap(20, 20, 20))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,6 +134,48 @@ public class menu_admin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void pesawatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesawatActionPerformed
+         admin_pesawat k = null;
+        try {
+            k = new admin_pesawat();
+        } catch (SQLException ex) {
+            Logger.getLogger(menu_admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         k.setVisible(true);
+    }//GEN-LAST:event_pesawatActionPerformed
+
+    private void pesawatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pesawatMouseClicked
+        //admin_kota().setVisible(true);
+    }//GEN-LAST:event_pesawatMouseClicked
+
+    private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
+        int selectedOption = JOptionPane.showConfirmDialog(null,
+                "Apakah anda akan menutup system?", "Tutup Aplikasi", JOptionPane.YES_NO_OPTION);
+        if (selectedOption == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_btnCloseMouseClicked
+
+    private void btn_kotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_kotaActionPerformed
+        admin_kota k = null;
+        try {
+            k = new admin_kota();
+        } catch (SQLException ex) {
+            Logger.getLogger(menu_admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         k.setVisible(true);
+    }//GEN-LAST:event_btn_kotaActionPerformed
+
+    private void jadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jadwalActionPerformed
+        admin_jadwal k = null;
+        try {
+            k = new admin_jadwal();
+        } catch (SQLException ex) {
+            Logger.getLogger(menu_admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         k.setVisible(true);
+    }//GEN-LAST:event_jadwalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,7 +214,7 @@ public class menu_admin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClose;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btn_kota;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jadwal;

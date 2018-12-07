@@ -1,5 +1,10 @@
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -12,11 +17,15 @@ import javax.swing.table.DefaultTableModel;
  * @author USER
  */
 public class pemesanan extends javax.swing.JFrame {
+    private Connection conn;
+
+    String id_jadwal = "";
 
     /**
      * Creates new form pemesanan
      */
-    public pemesanan() {
+    public pemesanan() throws SQLException {
+        this.conn = config.configDB();
         initComponents();
         load_table();
     }
@@ -52,6 +61,7 @@ public class pemesanan extends javax.swing.JFrame {
         tb_kodejadwal = new javax.swing.JTextField();
         tb_total = new javax.swing.JTextField();
         bt_pesan = new javax.swing.JButton();
+        btnAdmin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,6 +76,12 @@ public class pemesanan extends javax.swing.JFrame {
         jLabel4.setText("Jumlah");
 
         jLabel5.setText("Kota Awal");
+
+        cb_awal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_awalActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Kota Tujuan");
 
@@ -86,18 +102,6 @@ public class pemesanan extends javax.swing.JFrame {
                     .addComponent(bt_cek, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel3))
-                                .addGap(43, 43, 43)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cb_tujuan, 0, 158, Short.MAX_VALUE)
-                                    .addComponent(tb_telepon)
-                                    .addComponent(tb_jumlah)
-                                    .addComponent(cb_awal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
@@ -105,8 +109,21 @@ public class pemesanan extends javax.swing.JFrame {
                                 .addGap(64, 64, 64)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(tb_nik)
-                                    .addComponent(tb_nama, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))))
-                        .addGap(0, 71, Short.MAX_VALUE)))
+                                    .addComponent(tb_nama, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel6))
+                                .addGap(33, 33, 33)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cb_tujuan, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(tb_telepon)
+                                        .addComponent(tb_jumlah)
+                                        .addComponent(cb_awal, 0, 158, Short.MAX_VALUE)))))
+                        .addGap(0, 186, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -132,10 +149,10 @@ public class pemesanan extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(cb_awal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6)
-                    .addComponent(cb_tujuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(cb_tujuan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bt_cek))
         );
 
@@ -207,6 +224,18 @@ public class pemesanan extends javax.swing.JFrame {
         );
 
         bt_pesan.setText("Submit");
+        bt_pesan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_pesanActionPerformed(evt);
+            }
+        });
+
+        btnAdmin.setText("Admin");
+        btnAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -216,15 +245,20 @@ public class pemesanan extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bt_pesan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(bt_pesan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnAdmin)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(btnAdmin)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -273,6 +307,7 @@ public class pemesanan extends javax.swing.JFrame {
         // TODO add your handling code here:
         int baris = tbl_list.rowAtPoint(evt.getPoint());
         tb_kodejadwal.setText(tbl_list.getValueAt(baris, 0).toString());
+        id_jadwal = tbl_list.getValueAt(baris, 0).toString();
         int total = Integer.parseInt(String.valueOf(tbl_list.getValueAt(baris, 4))) * Integer.parseInt(tb_jumlah.getText());
         tb_total.setText(String.valueOf(total));
     }//GEN-LAST:event_tbl_listMouseClicked
@@ -280,6 +315,43 @@ public class pemesanan extends javax.swing.JFrame {
     private void tb_kodejadwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tb_kodejadwalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tb_kodejadwalActionPerformed
+
+    private void bt_pesanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_pesanActionPerformed
+        int jumlah = Integer.parseInt(tb_jumlah.getText());
+        int total = Integer.parseInt(tb_total.getText());
+        String sql = "insert into pemesanan (id_jadwal, nik, nama, telpon, "
+                + "jumlah_tiket, total) values (?,?,?,?,?,?)";
+        try {
+            PreparedStatement stat = conn.prepareStatement(sql);
+            stat.setString(1, id_jadwal);
+            stat.setString(2, tb_nik.getText());
+            stat.setString(3, tb_nama.getText());
+            stat.setString(4, tb_telepon.getText());
+            stat.setInt(5, jumlah);
+            stat.setInt(6, total);
+            stat.executeUpdate();
+            JOptionPane.showMessageDialog(null, "DATA BERHASIL DISIMPAN");
+            //kosong();
+            //txtKode.requestFocus();
+            load_table();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "DATA GAGAL DISIMPAN" + e);
+        }
+    }//GEN-LAST:event_bt_pesanActionPerformed
+
+    private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
+        login k = null;
+        try {
+            k = new login();
+        } catch (SQLException ex) {
+            Logger.getLogger(menu_admin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         k.setVisible(true);
+    }//GEN-LAST:event_btnAdminActionPerformed
+
+    private void cb_awalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_awalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_awalActionPerformed
 
     private void load_table() {
         // membuat tampilan model tabel
@@ -328,8 +400,13 @@ public class pemesanan extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new pemesanan().setVisible(true);
+                try {
+                    new pemesanan().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(pemesanan.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -337,6 +414,7 @@ public class pemesanan extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_cek;
     private javax.swing.JButton bt_pesan;
+    private javax.swing.JButton btnAdmin;
     private javax.swing.JComboBox<String> cb_awal;
     private javax.swing.JComboBox<String> cb_tujuan;
     private javax.swing.JLabel jLabel1;

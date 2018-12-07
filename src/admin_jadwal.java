@@ -28,11 +28,12 @@ public class admin_jadwal extends javax.swing.JFrame {
      */
     private DefaultTableModel tabmode;
 
+    
     protected void aktif() {
         txtIdJadwal.setEnabled(true);
-        cmbIdPesawat.setEnabled(true);
-        cmbKotaAwal.setEnabled(true);
-        cmbKotaTujuan.setEnabled(true);
+        txtIdPesawat.setEnabled(true);
+        txtKotaAwal.setEnabled(true);
+        txtKotaTujuan.setEnabled(true);
         txtKeberangkatan.setEnabled(true);
         txtKedatangan.setEnabled(true);
         txtHarga.setEnabled(true);
@@ -40,9 +41,9 @@ public class admin_jadwal extends javax.swing.JFrame {
 
     protected void kosong() {
         txtIdJadwal.setText("");
-        cmbIdPesawat.setSelectedIndex(0);
-        cmbKotaAwal.setSelectedIndex(0);
-        cmbKotaTujuan.setSelectedIndex(0);
+        txtIdPesawat.setText("");
+        txtKotaAwal.setText("");
+        txtKotaTujuan.setText("");
         txtKeberangkatan.setText("");
         txtKedatangan.setText("");
         txtHarga.setText("");
@@ -98,16 +99,16 @@ public class admin_jadwal extends javax.swing.JFrame {
         lblKedatangan = new javax.swing.JLabel();
         lblHarga = new javax.swing.JLabel();
         txtIdJadwal = new javax.swing.JTextField();
-        cmbIdPesawat = new javax.swing.JComboBox<>();
-        cmbKotaAwal = new javax.swing.JComboBox<>();
-        cmbKotaTujuan = new javax.swing.JComboBox<>();
         txtKeberangkatan = new javax.swing.JTextField();
-        txtKedatangan = new javax.swing.JTextField();
-        txtHarga = new javax.swing.JTextField();
         btnTambah = new javax.swing.JButton();
         btnUbah = new javax.swing.JButton();
         btnHapus = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        txtKotaAwal = new javax.swing.JTextField();
+        txtIdPesawat = new javax.swing.JTextField();
+        txtKotaTujuan = new javax.swing.JTextField();
+        txtHarga = new javax.swing.JTextField();
+        txtKedatangan = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_jadwal = new javax.swing.JTable();
 
@@ -131,19 +132,40 @@ public class admin_jadwal extends javax.swing.JFrame {
 
         lblHarga.setText("HARGA");
 
-        cmbIdPesawat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cmbKotaAwal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cmbKotaTujuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         btnTambah.setText("TAMBAH");
+        btnTambah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTambahActionPerformed(evt);
+            }
+        });
 
         btnUbah.setText("UBAH");
+        btnUbah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUbahActionPerformed(evt);
+            }
+        });
 
         btnHapus.setText("HAPUS");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
 
         btnClear.setText("CLEAR");
+
+        txtKotaAwal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtKotaAwalActionPerformed(evt);
+            }
+        });
+
+        txtKotaTujuan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtKotaTujuanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -154,14 +176,6 @@ public class admin_jadwal extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblKedatangan)
-                                    .addComponent(lblHarga))
-                                .addGap(84, 84, 84)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtKedatangan)
-                                    .addComponent(txtHarga)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblIDJadwal, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -171,15 +185,22 @@ public class admin_jadwal extends javax.swing.JFrame {
                                     .addComponent(lblKeberangkatan))
                                 .addGap(66, 66, 66)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtIdJadwal)
-                                    .addComponent(cmbIdPesawat, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cmbKotaAwal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cmbKotaTujuan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtKeberangkatan)))))
+                                    .addComponent(txtIdPesawat)
+                                    .addComponent(txtKotaTujuan, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtKotaAwal, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtKeberangkatan, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtHarga)
+                                    .addComponent(txtKedatangan, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtIdJadwal)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblKedatangan)
+                                    .addComponent(lblHarga))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(261, 261, 261)
                         .addComponent(lblJadwal)))
-                .addGap(308, 308, 308))
+                .addGap(279, 279, 279))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(47, 47, 47)
                 .addComponent(btnTambah)
@@ -199,39 +220,37 @@ public class admin_jadwal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblIDJadwal)
                     .addComponent(txtIdJadwal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblIDPesawat)
-                        .addComponent(cmbIdPesawat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblKotaAwal)
-                            .addComponent(cmbKotaAwal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblIDPesawat)
+                    .addComponent(txtIdPesawat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtKotaAwal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblKotaAwal))
+                .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblKotaTujuan)
-                    .addComponent(cmbKotaTujuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtKotaTujuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblKeberangkatan)
                     .addComponent(txtKeberangkatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtKedatangan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblKedatangan))
+                    .addComponent(lblKedatangan)
+                    .addComponent(txtKedatangan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblHarga))
+                    .addComponent(lblHarga)
+                    .addComponent(txtHarga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnTambah)
                     .addComponent(btnUbah)
                     .addComponent(btnHapus)
                     .addComponent(btnClear))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         tbl_jadwal.setModel(new javax.swing.table.DefaultTableModel(
@@ -245,6 +264,11 @@ public class admin_jadwal extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbl_jadwal.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_jadwalMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_jadwal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -267,12 +291,127 @@ public class admin_jadwal extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtKotaAwalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKotaAwalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtKotaAwalActionPerformed
+
+    private void txtKotaTujuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKotaTujuanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtKotaTujuanActionPerformed
+
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+        String sql = "insert into jadwal values (?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement stat = conn.prepareStatement(sql);
+            stat.setString(1, txtIdJadwal.getText());
+            stat.setString(2, txtIdPesawat.getText());
+            stat.setString(3, txtKotaAwal.getText());
+            stat.setString(4, txtKotaTujuan.getText());
+            stat.setString(5, txtKeberangkatan.getText());
+            stat.setString(6, txtKedatangan.getText());
+            stat.setString(7, txtHarga.getText());
+            
+            stat.executeUpdate();
+            JOptionPane.showMessageDialog(null, "DATA BERHASIL DISIMPAN");
+            kosong();
+            txtIdJadwal.requestFocus();
+            datatable();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "DATA GAGAL DISIMPAN" + e);
+        }
+    }//GEN-LAST:event_btnTambahActionPerformed
+
+    private void btnUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUbahActionPerformed
+         try{
+            String sql = "update jadwal set ID_PESAWAT=?, KOTA_AWAL=?, "
+                    + "KOTA_TUJUAN=?, KEBERANGKATAN=?, KEDATANGAN=?, HARGA=? where ID_JADWAL='"+txtIdJadwal.getText()+"'";
+            //String sql = "update jadwal set JADWAL=?"
+           // + "where ID_JADWAL='"+txtIdJadwal.getText()+"'";
+
+            PreparedStatement stat = conn.prepareStatement(sql);
+            //stat.setString(1, txtIdJadwal.getText());
+            stat.setString(1, txtIdPesawat.getText());
+            stat.setString(2, txtKotaAwal.getText());
+            stat.setString(3, txtKotaTujuan.getText());
+            stat.setString(4, txtKeberangkatan.getText());
+            stat.setString(5, txtKedatangan.getText());
+            stat.setString(6, txtHarga.getText());
+            stat.executeUpdate();
+            JOptionPane.showMessageDialog(null, "DATA BERHASIL DIUBAH");
+            kosong();
+            txtIdJadwal.requestFocus();
+            datatable();
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "DATA GAGAL DIUBAH"+e);
+        }
+
+    }//GEN-LAST:event_btnUbahActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        int ok = JOptionPane.showConfirmDialog(null, "YAKIN MAU HAPUS?","PESAN KONFIRMASI",JOptionPane.YES_NO_CANCEL_OPTION);
+        if(ok==0){
+            String sql = "delete from jadwal where ID_JADWAL = '"+txtIdJadwal.getText()+"'";
+            try{
+                PreparedStatement stat = conn.prepareStatement(sql);
+                stat.executeUpdate();
+                JOptionPane.showMessageDialog(null, "DATA BERHASIL DIHAPUS");
+                kosong();
+                txtIdJadwal.requestFocus();
+                datatable();
+            }catch(SQLException e){
+                JOptionPane.showMessageDialog(null, "data gagal dihapus"+e);
+            }
+        }
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void tbl_jadwalMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_jadwalMouseClicked
+        int bar = tbl_jadwal.getSelectedRow();
+        String a = tabmode.getValueAt(bar, 0).toString();
+        String b = tabmode.getValueAt(bar, 1).toString();
+        String c = tabmode.getValueAt(bar, 2).toString();
+        String d = tabmode.getValueAt(bar, 3).toString();
+        String e = tabmode.getValueAt(bar, 4).toString();
+        String f = tabmode.getValueAt(bar, 5).toString();
+        String g = tabmode.getValueAt(bar, 6).toString();
+        txtIdJadwal.setText(a);
+        txtIdPesawat.setText(b);
+        txtKotaAwal.setText(c);
+        txtKotaTujuan.setText(d);
+        txtKeberangkatan.setText(e);
+        txtKedatangan.setText(f);
+        txtHarga.setText(g);
+    }//GEN-LAST:event_tbl_jadwalMouseClicked
+ private void load_table() {
+        // membuat tampilan model tabel
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID_JADWAL");
+        model.addColumn("ID_PESAWAT");
+        model.addColumn("KOTA AWAL");
+        model.addColumn("KOTA TUJUAN");
+        model.addColumn("KEBERANGKATAN");
+        model.addColumn("KEDATANGAN");
+        model.addColumn("HARGA");
+        //menampilkan data database kedalam tabel
+        try {
+            String sql_kota = "SELECT * FROM jadwal";
+           java.sql.Connection conn = (Connection) config.configDB();
+            java.sql.Statement stm = conn.createStatement();
+            java.sql.ResultSet res;
+            res = stm.executeQuery(sql_kota);
+            while (res.next()) {
+                model.addRow(new Object[]{res.getString(1), res.getString(2), res.getString(3), 
+                    res.getString(4), res.getString(5), res.getString(6), res.getString(7)});
+            }
+            tbl_jadwal.setModel(model);
+        } catch (Exception e) {
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -317,9 +456,6 @@ public class admin_jadwal extends javax.swing.JFrame {
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnTambah;
     private javax.swing.JButton btnUbah;
-    private javax.swing.JComboBox<String> cmbIdPesawat;
-    private javax.swing.JComboBox<String> cmbKotaAwal;
-    private javax.swing.JComboBox<String> cmbKotaTujuan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -334,7 +470,10 @@ public class admin_jadwal extends javax.swing.JFrame {
     private javax.swing.JTable tbl_jadwal;
     private javax.swing.JTextField txtHarga;
     private javax.swing.JTextField txtIdJadwal;
+    private javax.swing.JTextField txtIdPesawat;
     private javax.swing.JTextField txtKeberangkatan;
     private javax.swing.JTextField txtKedatangan;
+    private javax.swing.JTextField txtKotaAwal;
+    private javax.swing.JTextField txtKotaTujuan;
     // End of variables declaration//GEN-END:variables
 }

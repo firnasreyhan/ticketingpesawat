@@ -125,6 +125,11 @@ public class login extends javax.swing.JFrame {
                 btnSignInMouseClicked(evt);
             }
         });
+        btnSignIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSignInActionPerformed(evt);
+            }
+        });
 
         btnSignUp.setBackground(new java.awt.Color(102, 102, 102));
         btnSignUp.setText("SIGN UP");
@@ -230,6 +235,10 @@ public class login extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_btnCloseMouseClicked
+
+    private void btnSignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignInActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSignInActionPerformed
 
     /**
      * @param args the command line arguments
